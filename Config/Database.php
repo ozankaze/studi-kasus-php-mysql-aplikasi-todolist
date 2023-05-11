@@ -9,7 +9,7 @@ namespace Config
         {
             $host = "localhost";
             $port = 3306;
-            $database = "belajar_php_database";
+            $database = "belajar_php_todolist";
             $username = "admin";
             $password = "password";
  
