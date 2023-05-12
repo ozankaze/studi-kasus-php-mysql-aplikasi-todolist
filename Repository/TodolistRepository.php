@@ -41,17 +41,34 @@ namespace Repository
 
         function remove(int $number): bool
         {
-            if ($number > count($this->todolist)) {
+            
+            // if ($number > count($this->todolist)) {
+            //     return false;
+            // }
+        
+            // for ($i = $number; $i < count($this->todolist); $i++) {
+            //     $this->todolist[$i] = $this->todolist[$i+1];
+            // }
+        
+            // unset($this->todolist[count($this->todolist)]);
+        
+            // return true;
+
+            $sql = "SELECT id FROM todolist WHERE id = ?";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute([$number]);
+
+            if ($statement->fetch()) {
+                // todolist ada
+                $sql = "DELETE FROM todolist WHERE id = ?";
+                $statement = $this->connection->prepare($sql);
+                $statement->execute([$number]);
+                return true;
+            } else {
+                // todolist tidak ada
                 return false;
             }
-        
-            for ($i = $number; $i < count($this->todolist); $i++) {
-                $this->todolist[$i] = $this->todolist[$i+1];
-            }
-        
-            unset($this->todolist[count($this->todolist)]);
-        
-            return true;
+
         }
 
         function findAll(): array
