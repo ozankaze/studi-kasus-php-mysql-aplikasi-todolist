@@ -12,12 +12,15 @@ use Repository\TodolistRepositoryImpl;
 function testShowTodolist(): void
 {
 
-    $todolistRepository = new TodolistRepositoryImpl();
-    $todolistRepository->todolist[] = new Todolist("Belajar PHP");
-    $todolistRepository->todolist[] = new Todolist("Belajar PHP Todolist");
-    $todolistRepository->todolist[] = new Todolist("Belajar PHP Database");
+    $connection = \Config\Database::getConnection();
+    $todolistRepository = new TodolistRepositoryImpl($connection);
 
     $todolistService = new TodolistServiceImpl($todolistRepository);
+    $todolistService->addTodolist("Belajar PHP");
+    $todolistService->addTodolist("Belajar Database");
+    $todolistService->addTodolist("Belajar MySQL");
+    $todolistService->addTodolist("Belajar Laravel");
+
     $todolistService->showTodolist();
     
 }
@@ -52,6 +55,6 @@ function testRemoveTodoList(): void
 
 }
 
-// testShowTodolist();
-testAddTodolist();
+testShowTodolist();
+// testAddTodolist();
 // testRemoveTodoList();
